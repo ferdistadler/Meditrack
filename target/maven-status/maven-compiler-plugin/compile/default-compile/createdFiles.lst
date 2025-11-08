@@ -1,1 +1,4 @@
 com/meditrack/usermanagement/domain/model/Email.class
+com/meditrack/usermanagement/domain/model/User.class
+com/meditrack/usermanagement/domain/model/Role.class
+com/meditrack/usermanagement/domain/model/Password.class

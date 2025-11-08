@@ -31,7 +31,7 @@ public class Password {
         if (!plain.matches(".*[0-9].*")) {
             throw new IllegalArgumentException("Password must contain at least one digit");
         }
-        if (!plain.matches(".*[!@#$%^&*()_+\\-=[\\]{}|;:,.<>?].*")) {
+        if (!plain.matches(".*[!@#$%^&*()_+\\-=\\[\\]{}|;:,.<>?].*")) {
             throw new IllegalArgumentException("Password must contain at least one special character");
         }
         if (plain.contains(" ")) {

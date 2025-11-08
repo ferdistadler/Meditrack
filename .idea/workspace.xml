@@ -5,14 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="50644f16-bdd9-4f9e-85c7-c03a8cdaf836" name="Changes" comment="java klassen + pom.xml erstellt">
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/meditrack/usermanagement/domain/model/Email.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/meditrack/usermanagement/domain/model/Email.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/meditrack/usermanagement/domain/model/Password.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/meditrack/usermanagement/domain/model/Password.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/meditrack/usermanagement/domain/model/Role.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/meditrack/usermanagement/domain/model/Role.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/meditrack/usermanagement/domain/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/meditrack/usermanagement/domain/model/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/meditrack/usermanagement/domain/model/EmailTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/meditrack/usermanagement/domain/model/EmailTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/meditrack/usermanagement/domain/model/PasswordTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/meditrack/usermanagement/domain/model/PasswordTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/meditrack/usermanagement/domain/model/UserTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/meditrack/usermanagement/domain/model/UserTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -172,7 +167,7 @@
       <workItem from="1762338660703" duration="5381000" />
       <workItem from="1762375818613" duration="2269000" />
       <workItem from="1762458176757" duration="7232000" />
-      <workItem from="1762526191012" duration="13751000" />
+      <workItem from="1762526191012" duration="14414000" />
     </task>
     <task id="LOCAL-00001" summary="maven installiert">
       <option name="closed" value="true" />
