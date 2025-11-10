@@ -14,6 +14,7 @@
 - Neue Complexity pro Methode: ≤ 3
 - Bessere Testbarkeit und Wartbarkeit
 
+
 ## Aufgabe 2: Test Coverage erweitern
 
 ### Tool: JaCoCo (Java Code Coverage Library)
@@ -55,4 +56,54 @@ Der LLM (Claude) half bei:
 - 🏆 Alle kritischen Methoden vollständig getestet
 - ✅ Ziel (80%) deutlich übertroffen
 
-**Zeitersparnis durch LLM:** ~8-10 Stunden
+
+## Aufgabe 3: Technical Debt mit SonarQube analysieren
+
+### Tool: SonarQube Community Edition (Docker)
+
+**Quality Gate Status:** ✅ PASSED
+
+**Projekt-Metriken:**
+
+| Metrik | Wert | Bewertung |
+|--------|------|-----------|
+| **Lines of Code** | 307 | Klein |
+| **Code Coverage** | 97.5% | ⭐⭐⭐⭐⭐ Exzellent |
+| **Security Issues** | 0 | ⭐⭐⭐⭐⭐ Perfekt |
+| **Reliability (Bugs)** | 0 | ⭐⭐⭐⭐⭐ Perfekt |
+| **Maintainability Issues** | 15 | ⭐⭐⭐ Verbesserungsbedarf |
+| **Code Duplications** | 0.0% | ⭐⭐⭐⭐⭐ Perfekt |
+| **Technical Debt** | 54 Minuten | ⭐⭐⭐⭐ Niedrig |
+
+**Identifizierte Issues:**
+
+| Severity | Anzahl | Effort | Beispiel |
+|----------|--------|--------|----------|
+| 🔴 Blocker | 1 | 10 Min | Test ohne Assertions |
+| 🟠 Medium | 11 | 37 Min | Auskommentierter Code, assertEquals-Reihenfolge |
+| 🟡 Low | 3 | 7 Min | Regex-Syntax |
+
+**LLM-Analyse der Top-Issues:**
+
+1. **Test ohne Assertions (Blocker)**
+   - Problem: Test verifiziert nichts, täuscht Coverage vor
+   - LLM-Lösung: Arrange-Act-Assert Pattern implementieren
+   - Impact: Echte Test-Qualität sicherstellen
+
+2. **Auskommentierter Code (Medium)**
+   - Problem: 3 Blöcke mit commented-out Tests
+   - LLM-Empfehlung: In Dokumentation umwandeln
+   - Ergebnis: Business-Entscheidungen dokumentiert
+
+3. **assertEquals Reihenfolge (Medium)**
+   - Problem: 7 Tests mit falscher Argument-Reihenfolge
+   - LLM-Erklärung: `assertEquals(expected, actual)` → bessere Fehlermeldungen
+   - Impact: Tests werden wartbarer
+
+**Erwartetes Ergebnis nach Fixes:**
+- Technical Debt: 54 Min → **0 Min** ✅
+- Maintainability Rating: B → **A** ✅
+
+
+
+
