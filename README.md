@@ -105,5 +105,18 @@ Der LLM (Claude) half bei:
 - Maintainability Rating: B → **A** ✅
 
 
+## Aufgabe 4: Frontend-Entwicklung
+
+### Verwendete Technologien
+- **Framework:** React 18
+- **Styling:** Tailwind CSS
+- **Build-Tool:** Vite
+
+### Implementierte Features
+- User Registration Form
+- Login/Authentication
+- Password Validation 
+- Email Validation
+- Responsive Design
 
 
