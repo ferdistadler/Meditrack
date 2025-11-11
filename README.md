@@ -1,122 +1,50 @@
-# Meditrack
+# Aufgabe 5: Software- und Architekturmetriken für Codequalität und Architekturoptimierung
 
-## Aufgabe 1: Code-Metriken analysieren
+## 1. Überblick und Anwendung einfacher Metriken: 
 
-### Tool: IntelliJ IDEA CodeMetrics Plugin
+### Verwendete Tools
 
-**Ergebnis:** Durchschnittliche Complexity 1,92 (✅ sehr gut)
+**Tool:** IntelliJ IDEA CodeMetrics Plugin
 
-**Identifizierte Schwachstelle:**
-- `Password.validate()` - Cyclomatic Complexity **10** (Grenzwert erreicht)
+**Grund für die Wahl:**
+- Direkte Integration in die verwendete IDE
+- Keine zusätzliche Server-Installation erforderlich (im Gegensatz zu SonarQube)
 
-**LLM-Optimierung:**
-- Methode in kleinere, fokussierte Methoden aufgeteilt
-- Neue Complexity pro Methode: ≤ 3
-- Bessere Testbarkeit und Wartbarkeit
+---
 
+### Gemessene Metriken
 
-## Aufgabe 2: Test Coverage erweitern
+| Metrik | Bedeutung | Zielwert |
+| --- | --- | --- |
+| **v(G)** - Cyclomatic Complexity | Anzahl unabhängiger Ausführungspfade durch eine Methode | ≤ 10 |
+| **CogC** - Cognitive Complexity | Wie schwer ist der Code zu verstehen? | ≤ 15 |
+| **WMC** - Weighted Methods per Class | Summe aller Komplexitäten in einer Klasse | ≤ 50 |
+| **OCavg** - Average Operation Complexity | Durchschnittliche Komplexität pro Methode | ≤ 5 |
+| **OCmax** - Maximum Operation Complexity | Höchste Komplexität einer Methode in der Klasse | ≤ 10 |
 
-### Tool: JaCoCo (Java Code Coverage Library)
+### Detaillierte Klassen-Analyse
 
-**Ausgangssituation:**
-- Instruction Coverage: 64%
-- Branch Coverage: 63%
-- Anzahl Tests: 9
-- 5 von 15 User-Methoden komplett ungetestet (0% Coverage)
+### Übersicht der Klassen:
 
-**LLM-gestützte Testplanung:**
+| Klasse | Ø Complexity | Max Complexity | WMC | Anzahl Methoden | Bewertung |
+| --- | --- | --- | --- | --- | --- |
+| **Password** | 2,57 | **9** | 18 | 7 | ⚠️ Optimierungsbedarf |
+| **Email** | 2,20 | 5 | 11 | 5 | ⚡ Akzeptabel |
+| **User** | 1,47 | 3 | 22 | 15 | ✅ Gut |
+| **PasswordTest** | 1,00 | 1 | 3 | 3 | ✅ Sehr gut |
+| **EmailTest** | 1,00 | 1 | 3 | 3 | ✅ Sehr gut |
+| **UserTest** | 1,00 | 1 | 3 | 3 | ✅ Sehr gut |
+| **Role** | n/a | n/a | 0 | 0 | ✅ Enum (keine Methoden) |
 
-Der LLM (Claude) half bei:
-1. **Systematischer Identifikation von Coverage-Lücken**
-   - Priorisierung nach Kritikalität (ungetestete Methoden zuerst)
-   - Komplexeste Methode: `Password.validate()` mit nur 66% Coverage
+### Identifizierte Schwachstellen
 
-2. **Edge-Case-Generierung**
-   - Boundary-Tests (min/max Längen)
-   - Fehlende Zeichentypen
-   - Null-Handling
-   - equals()/hashCode() Contract-Tests
+### 🔴 Kritisch: Password.validate(String)
 
-3. **Erstellung umfassender Test-Suiten**
-   - EmailTest: 3 → 41 Tests (+38)
-   - PasswordTest: 3 → 39 Tests (+36)
-   - UserTest: 3 → 42 Tests (+39)
+### ⚠️ Moderat: User.validateName(String)
 
-**Endergebnis:**
-
-| Metrik | Vorher | Nachher | Verbesserung |
-|--------|--------|---------|--------------|
-| **Instruction Coverage** | 64% | **97%** | +33% |
-| **Branch Coverage** | 63% | **96%** | +33% |
-| **Anzahl Tests** | 9 | **122** | +1255% |
-
-**Besondere Erfolge:**
-- 🏆 User-Klasse: 100% Coverage
-- 🏆 Alle kritischen Methoden vollständig getestet
-- ✅ Ziel (80%) deutlich übertroffen
+### Optimierungspotential: Email.Email(String)
 
 
-## Aufgabe 3: Technical Debt mit SonarQube analysieren
-
-### Tool: SonarQube Community Edition (Docker)
-
-**Quality Gate Status:** ✅ PASSED
-
-**Projekt-Metriken:**
-
-| Metrik | Wert | Bewertung |
-|--------|------|-----------|
-| **Lines of Code** | 307 | Klein |
-| **Code Coverage** | 97.5% | ⭐⭐⭐⭐⭐ Exzellent |
-| **Security Issues** | 0 | ⭐⭐⭐⭐⭐ Perfekt |
-| **Reliability (Bugs)** | 0 | ⭐⭐⭐⭐⭐ Perfekt |
-| **Maintainability Issues** | 15 | ⭐⭐⭐ Verbesserungsbedarf |
-| **Code Duplications** | 0.0% | ⭐⭐⭐⭐⭐ Perfekt |
-| **Technical Debt** | 54 Minuten | ⭐⭐⭐⭐ Niedrig |
-
-**Identifizierte Issues:**
-
-| Severity | Anzahl | Effort | Beispiel |
-|----------|--------|--------|----------|
-| 🔴 Blocker | 1 | 10 Min | Test ohne Assertions |
-| 🟠 Medium | 11 | 37 Min | Auskommentierter Code, assertEquals-Reihenfolge |
-| 🟡 Low | 3 | 7 Min | Regex-Syntax |
-
-**LLM-Analyse der Top-Issues:**
-
-1. **Test ohne Assertions (Blocker)**
-   - Problem: Test verifiziert nichts, täuscht Coverage vor
-   - LLM-Lösung: Arrange-Act-Assert Pattern implementieren
-   - Impact: Echte Test-Qualität sicherstellen
-
-2. **Auskommentierter Code (Medium)**
-   - Problem: 3 Blöcke mit commented-out Tests
-   - LLM-Empfehlung: In Dokumentation umwandeln
-   - Ergebnis: Business-Entscheidungen dokumentiert
-
-3. **assertEquals Reihenfolge (Medium)**
-   - Problem: 7 Tests mit falscher Argument-Reihenfolge
-   - LLM-Erklärung: `assertEquals(expected, actual)` → bessere Fehlermeldungen
-   - Impact: Tests werden wartbarer
-
-**Erwartetes Ergebnis nach Fixes:**
-- Technical Debt: 54 Min → **0 Min** ✅
-- Maintainability Rating: B → **A** ✅
-
-
-## Aufgabe 4: Frontend-Entwicklung
-
-### Verwendete Technologien
-- **Framework:** React 18
-- **Styling:** Tailwind CSS
-- **Build-Tool:** Vite
-
-### Implementierte Features
-- User Registration Form
-- Login/Authentication
-- Password Validation 
-- Email Validation
-- Responsive Design
+## 2: Test Coverage erweitern und Code Coverage verbessern
 
 
