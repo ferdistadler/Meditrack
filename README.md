@@ -222,3 +222,79 @@ Anzahl Tests:         122 (vorher: 9)`
 
 <img width="968" height="287" alt="Test_2_1" src="https://github.com/user-attachments/assets/d96fdd83-3138-41f8-a916-728764112a7e" />
 
+## 3: Technical Debt Analyse mit SonarQube
+
+### Tool: SonarQube Community Edition (Docker)
+
+**Was ist Technical Debt?**
+Technical Debt ist wie ein Kredit: Man spart jetzt Zeit durch schnelle Lösungen, zahlt aber später mehr Zeit durch schwer wartbaren Code zurück. SonarQube quantifiziert diesen "Kredit" in Minuten.
+
+### Analyse-Ergebnis
+
+**Quality Gate:** ✅ PASSED
+
+| Metrik | Wert | Status |
+| --- | --- | --- |
+| **Security Issues** | 0 | ✅ Perfekt |
+| **Bugs** | 0 | ✅ Perfekt |
+| **Test Coverage** | 97.5% | ✅ Exzellent |
+| **Code Duplications** | 0.0% | ✅ Perfekt |
+| **Maintainability Issues** | 15 | ⚠️ Verbesserungsbedarf |
+| **Technical Debt** | 54 Minuten | ⚠️ Überschaubar |
+
+### Die 3 kritischsten Issues
+
+### 1. 🔴 Blocker: Test ohne Assertions (10 Min)
+
+**Problem:** Test verifiziert nichts, täuscht Coverage vor
+
+**LLM-Erklärung:**
+
+> "Tests ohne Assertions schlagen niemals fehl, auch wenn der Code falsch ist. Sie verstoßen gegen das Arrange-Act-Assert-Pattern."
+> 
+
+**Lösung:**
+
+```java
+// ❌ Vorher: Nutzlos
+@Test
+void testUpdateProfile() {
+    user.updateProfile("Jane", "Smith");
+    // Keine Assertion!
+}
+
+// ✅ Nachher: Prüft Verhalten
+@Test
+void testUpdateProfile() {
+    user.updateProfile("Jane", "Smith");
+    assertEquals("Jane", user.getFirstName());
+    assertEquals("Smith", user.getLastName());
+}
+
+```
+
+### 2. 🟠 Medium: Auskommentierter Code (15 Min)
+
+**Problem:** 3 Blöcke mit auskommentiertem Code verwirren Entwickler
+
+**LLM-Empfehlung:** Als Dokumentation umschreiben statt löschen
+
+```java
+// Email Validation Design Decision:
+// The implementation intentionally uses permissive rules to support
+// legacy email addresses in the existing customer database.
+// Stricter validation may be implemented in v2.0.
+
+```
+
+### 3. 🟠 Medium: assertEquals Reihenfolge (14 Min)
+
+**Problem:** 7 Tests verwenden falsche Argument-Reihenfolge
+
+**LLM-Erklärung:**
+
+> "Die Konvention ist assertEquals(expected, actual), damit JUnit 'expected X but was Y' ausgibt - nicht umgekehrt."
+> 
+
+**Fix:** `assertEquals(user.getName(), "John")` → `assertEquals("John", user.getName())`
+
