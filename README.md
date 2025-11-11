@@ -158,11 +158,11 @@ Analysierte Klassen:  4 (Email, Password, User, Role)`
 
 ## 2.5 Testergebnisse
 
-### Finale Coverage-Messung (09.11.2025, 15:27 Uhr)
+### Finale Coverage-Messung
 
 **Gesamtübersicht:**
 
-`Instruction Coverage: 97% (vorher: 64%)
+Instruction Coverage: 97% (vorher: 64%)
 Branch Coverage:      96% (vorher: 63%)
 Anzahl Tests:         122 (vorher: 9)`
 
