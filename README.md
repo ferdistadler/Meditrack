@@ -39,11 +39,13 @@
 ### Identifizierte Schwachstellen
 
 ### 🔴 Kritisch: Password.validate(String)
+**LLM-Empfehlung:** Die Methode in kleinere, fokussierte Methoden aufteilen (Extract Method Refactoring).
 
 ### ⚠️ Moderat: User.validateName(String)
+**LLM-Empfehlung:** Wiederverwendbare Validator-Utility-Klasse erstellen.
 
 ### Optimierungspotential: Email.Email(String)
-
+**LLM-Empfehlung:** Validierungslogik extrahieren und Pattern-Kompilierung optimieren.
 
 ## 2: Test Coverage erweitern und Code Coverage verbessern
 
