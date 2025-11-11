@@ -47,4 +47,178 @@
 
 ## 2: Test Coverage erweitern und Code Coverage verbessern
 
+## Ausgangssituation 
+
+### Initiale Coverage-Messung 
+
+**Gesamtübersicht:**
+
+Instruction Coverage: 64%
+Branch Coverage:      63%
+Anzahl Tests:         9
+Analysierte Klassen:  4 (Email, Password, User, Role)`
+
+<img width="985" height="263" alt="Test_1_1" src="https://github.com/user-attachments/assets/42343236-d676-4302-ad0f-780747c312ad" />
+
+### Detaillierte Ausgangs-Coverage pro Klasse:
+
+### User-Klasse (62% Coverage):
+
+**Nicht getestete Methoden (0% Coverage):**
+
+- ❌ `changePassword(String, String)` - 0 von 2 Complexity
+- ❌ `updateProfile(String, String)` - 0 von 1 Complexity
+- ❌ `equals(Object)` - 0 von 3 Complexity
+- ❌ `hashCode()` - 0 von 1 Complexity
+- ❌ `getPassword()` - 0 von 1 Complexity
+
+**Teilweise getestet:**
+
+- ⚠️ `authenticate(String)` - 87% Coverage, 75% Branch Coverage
+- ⚠️ `validateName(String)` - 100% Instruction, aber nur 60% Branch Coverage
+
+**Fehlende Branches:** 11 von 26 Branches nicht getestet (57% Branch Coverage)
+
+### Password-Klasse (59% Coverage):
+
+**Nicht getestete Methoden:**
+
+- ❌ `hashCode()` - 0% Coverage
+
+**Teilweise getestet:**
+
+- ⚠️ `validate(String)` - nur 66% Coverage (5 von 10 Complexity nicht getestet)
+    - Fehlende Validierungen: zu lang, Whitespace, fehlende Zeichentypen
+- ⚠️ `equals(Object)` - 0% Coverage
+- ⚠️ `matches(String)` - 100% Instruction, aber nur 75% Branch Coverage
+
+**Fehlende Branches:** 10 von 26 Branches nicht getestet (61% Branch Coverage)
+
+### Email-Klasse (69% Coverage):
+
+**Nicht getestete Methoden:**
+
+- ❌ `toString()` - 0% Coverage
+- ❌ `hashCode()` - 0% Coverage
+
+**Teilweise getestet:**
+
+- ⚠️ `Email(String)` Konstruktor - 77% Coverage (20% der Validierung fehlt)
+- ⚠️ `equals(Object)` - 89% Coverage (einige Edge Cases fehlen)
+
+**Fehlende Branches:** 3 von 14 Branches nicht getestet (78% Branch Coverage)
+
+### Empfehlung 1: Password.validate() - Höchste Priorität
+
+**Begründung:** Komplexeste Methode (Cyclomatic Complexity: 10) mit nur 66% Coverage
+
+**Vorgeschlagene Edge-Case-Tests:**
+
+1. **Null-Handling:**
+    - `null` Password
+    - Leerer String
+    - Nur Whitespace
+2. **Längen-Boundary-Tests:**
+    - Genau 7 Zeichen (unter Minimum)
+    - Genau 8 Zeichen (Minimum)
+    - Genau 128 Zeichen (Maximum)
+    - 129 Zeichen (über Maximum)
+3. **Fehlende Zeichentypen:**
+    - Ohne Großbuchstaben
+    - Ohne Kleinbuchstaben
+    - Ohne Ziffern
+    - Ohne Sonderzeichen
+4. **Kombinationen:**
+    - Mehrere fehlende Requirements gleichzeitig
+    - Verschiedene Sonderzeichen testen
+    - Unicode-Zeichen
+
+**LLM-Begründung:**
+
+> "Die validate()-Methode ist sicherheitskritisch und sollte alle ungültigen Eingaben robust ablehnen. Jeder Branch sollte explizit getestet werden, um Sicherheitslücken zu vermeiden."
+> 
+
+### Empfehlung 2: User - Ungetestete Methoden
+
+**Begründung:** 5 von 15 Methoden komplett ungetestet (0% Coverage)
+
+**Vorgeschlagene Tests für `changePassword()`:**
+
+1. Korrektes altes Password → Erfolg
+2. Falsches altes Password → Exception
+3. Null-Werte für beide Parameter
+4. Ungültiges neues Password
+5. Gleiches Password wie vorher
+
+**Vorgeschlagene Tests für `updateProfile()`:**
+
+1. Nur firstName ändern
+2. Nur lastName ändern
+3. Beide Namen ändern
+4. Ungültige Namen (zu kurz, zu lang, null, leer)
+5. Namen mit Leerzeichen
+6. Boundary-Tests (2 und 50 Zeichen)
+
+**LLM-Begründung:**
+
+> "Diese Methoden sind zentral für die User-Verwaltung. Ohne Tests besteht das Risiko, dass Änderungen unbemerkt Fehler einführen."
+> 
+
+### Empfehlung 3: equals() und hashCode() - Alle Klassen
+
+**Begründung:** Fundamentale Methoden für Collections, aber komplett ungetestet
+
+**Vorgeschlagene Tests:**
+
+1. **Equals-Contract:**
+    - Reflexivität: `x.equals(x)` = true
+    - Symmetrie: `x.equals(y)` = `y.equals(x)`
+    - Transitivität: `x.equals(y)` ∧ `y.equals(z)` → `x.equals(z)`
+    - Konsistenz: Mehrfache Aufrufe liefern gleiches Ergebnis
+    - Null-Vergleich: `x.equals(null)` = false
+2. **HashCode-Contract:**
+    - Konsistenz: Mehrfache Aufrufe liefern gleichen Hash
+    - Equals-HashCode-Konsistenz: `x.equals(y)` → `x.hashCode()` = `y.hashCode()`
+3. **Integration-Tests:**
+    - Funktioniert in `HashSet`
+    - Funktioniert als `HashMap`Key
+
+**LLM-Begründung:**
+
+> "Fehlerhafte equals()/hashCode()-Implementierungen führen zu schwer debugbaren Problemen in Collections. Diese Methoden müssen umfassend getestet werden."
+> 
+
+### Empfehlung 4: Edge Cases für Email-Validierung
+
+**Begründung:** Email-Validierung ist anfällig für Sicherheitsprobleme
+
+**Vorgeschlagene Tests:**
+
+1. Ungültige Formate (ohne @, ohne Domain, ohne TLD)
+2. Sonderzeichen im lokalen Teil
+3. Subdomains
+4. Verschiedene TLDs
+5. Leading/Trailing Whitespace
+6. Case-Sensitivity
+
+## 2.5 Testergebnisse
+
+### Finale Coverage-Messung (09.11.2025, 15:27 Uhr)
+
+**Gesamtübersicht:**
+
+`Instruction Coverage: 97% (vorher: 64%)
+Branch Coverage:      96% (vorher: 63%)
+Anzahl Tests:         122 (vorher: 9)`
+
+### Detaillierte End-Coverage pro Klasse:
+
+| Klasse | Instruction Cov. | Branch Cov. | Verbesserung | Bewertung |
+| --- | --- | --- | --- | --- |
+| **Email** | 93% (+24%) | 92% (+14%) | ⬆️ Sehr gut | ✅ Ziel übertroffen |
+| **Password** | 96% (+37%) | 96% (+35%) | ⬆️ Hervorragend | ✅ Ziel übertroffen |
+| **User** | 100% (+38%) | 100% (+43%) | ⬆️ Perfekt | ✅ Ziel übertroffen |
+| **Role** | 100% (±0%) | n/a | ⬆️ Perfekt | ✅ Bereits vollständig |
+
+<img width="968" height="287" alt="Test_2_1" src="https://github.com/user-attachments/assets/d96fdd83-3138-41f8-a916-728764112a7e" />
 
