@@ -181,9 +181,6 @@ Anzahl Tests:         122 (vorher: 9)`
 
 ### Tool: SonarQube Community Edition (Docker)
 
-**Was ist Technical Debt?**
-Technical Debt ist wie ein Kredit: Man spart jetzt Zeit durch schnelle Lösungen, zahlt aber später mehr Zeit durch schwer wartbaren Code zurück. SonarQube quantifiziert diesen "Kredit" in Minuten.
-
 ### Analyse-Ergebnis
 
 **Quality Gate:** ✅ PASSED
@@ -208,25 +205,6 @@ Technical Debt ist wie ein Kredit: Man spart jetzt Zeit durch schnelle Lösungen
 > "Tests ohne Assertions schlagen niemals fehl, auch wenn der Code falsch ist. Sie verstoßen gegen das Arrange-Act-Assert-Pattern."
 > 
 
-**Lösung:**
-
-```java
-// ❌ Vorher: Nutzlos
-@Test
-void testUpdateProfile() {
-    user.updateProfile("Jane", "Smith");
-    // Keine Assertion!
-}
-
-// ✅ Nachher: Prüft Verhalten
-@Test
-void testUpdateProfile() {
-    user.updateProfile("Jane", "Smith");
-    assertEquals("Jane", user.getFirstName());
-    assertEquals("Smith", user.getLastName());
-}
-
-```
 
 ### 2. 🟠 Medium: Auskommentierter Code (15 Min)
 
