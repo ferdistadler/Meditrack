@@ -301,9 +301,9 @@ void testUpdateProfile() {
 **Fix:** `assertEquals(user.getName(), "John")` → `assertEquals("John", user.getName())`
 
 
-## 🎨 Frontend-Technologien
+## 4. Frontend-Entwicklung und Erweiterung der Anwendung: 
 
-**Verwendete Technologien:**
+**Einfacher Login, nicht rollenspezifisch**
 - **Vanilla JavaScript + Tailwind CSS** - Leichtgewichtige, moderne Web-UI ohne Framework-Dependencies
 - **REST API Integration** - Fetch API für asynchrone Backend-Kommunikation mit Spring Boot
 - **Responsive Design** - Mobile-first Ansatz mit Tailwind's Utility-Classes für optimale Darstellung auf allen Geräten
