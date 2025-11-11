@@ -62,53 +62,6 @@ Analysierte Klassen:  4 (Email, Password, User, Role)`
 
 <img width="985" height="263" alt="Test_1_1" src="https://github.com/user-attachments/assets/42343236-d676-4302-ad0f-780747c312ad" />
 
-### Detaillierte Ausgangs-Coverage pro Klasse:
-
-### User-Klasse (62% Coverage):
-
-**Nicht getestete Methoden (0% Coverage):**
-
-- ❌ `changePassword(String, String)` - 0 von 2 Complexity
-- ❌ `updateProfile(String, String)` - 0 von 1 Complexity
-- ❌ `equals(Object)` - 0 von 3 Complexity
-- ❌ `hashCode()` - 0 von 1 Complexity
-- ❌ `getPassword()` - 0 von 1 Complexity
-
-**Teilweise getestet:**
-
-- ⚠️ `authenticate(String)` - 87% Coverage, 75% Branch Coverage
-- ⚠️ `validateName(String)` - 100% Instruction, aber nur 60% Branch Coverage
-
-**Fehlende Branches:** 11 von 26 Branches nicht getestet (57% Branch Coverage)
-
-### Password-Klasse (59% Coverage):
-
-**Nicht getestete Methoden:**
-
-- ❌ `hashCode()` - 0% Coverage
-
-**Teilweise getestet:**
-
-- ⚠️ `validate(String)` - nur 66% Coverage (5 von 10 Complexity nicht getestet)
-    - Fehlende Validierungen: zu lang, Whitespace, fehlende Zeichentypen
-- ⚠️ `equals(Object)` - 0% Coverage
-- ⚠️ `matches(String)` - 100% Instruction, aber nur 75% Branch Coverage
-
-**Fehlende Branches:** 10 von 26 Branches nicht getestet (61% Branch Coverage)
-
-### Email-Klasse (69% Coverage):
-
-**Nicht getestete Methoden:**
-
-- ❌ `toString()` - 0% Coverage
-- ❌ `hashCode()` - 0% Coverage
-
-**Teilweise getestet:**
-
-- ⚠️ `Email(String)` Konstruktor - 77% Coverage (20% der Validierung fehlt)
-- ⚠️ `equals(Object)` - 89% Coverage (einige Edge Cases fehlen)
-
-**Fehlende Branches:** 3 von 14 Branches nicht getestet (78% Branch Coverage)
 
 ### Empfehlung 1: Password.validate() - Höchste Priorität
 
